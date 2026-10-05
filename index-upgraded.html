@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="CINÉVAULT — Discover films, trending titles and cinematic stories from around the world.">
+<title>CINÉVAULT — Discover What's Worth Watching</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+:root{--bg:#07070b;--panel:#101016;--panel2:#15151d;--text:#f6f3ed;--muted:#9d9aa7;--accent:#ffb84a;--accent2:#b88cff;--line:rgba(255,255,255,.09);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 5%,rgba(184,140,255,.12),transparent 28%),radial-gradient(circle at 15% 25%,rgba(255,184,74,.08),transparent 25%),var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}button,input{font:inherit}.container{width:min(1220px,calc(100% - 36px));margin:auto}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:20;padding:0 24px;background:linear-gradient(180deg,rgba(7,7,11,.92),rgba(7,7,11,.35),transparent);backdrop-filter:blur(8px)}
+.logo{font-weight:800;letter-spacing:.18em;font-size:17px}.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:25px;color:#bbb8c2;font-size:13px}.navlinks a:hover{color:white}.navright{display:flex;gap:10px;align-items:center}
+.iconbtn,.profile{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.05);color:white;display:grid;place-items:center;cursor:pointer}
+.hero{min-height:720px;padding-top:76px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,11,.98) 0%,rgba(7,7,11,.82) 37%,rgba(7,7,11,.2) 70%,rgba(7,7,11,.72) 100%),linear-gradient(0deg,#07070b 0%,transparent 35%),url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero:after{content:"";position:absolute;right:-15%;top:10%;width:480px;height:480px;border-radius:50%;background:rgba(184,140,255,.16);filter:blur(90px)}
+.heroContent{position:relative;z-index:2;padding:70px 0 92px;max-width:670px}
+.eyebrow{display:flex;gap:9px;align-items:center;color:#ddd;font-size:11px;text-transform:uppercase;letter-spacing:.18em;margin-bottom:18px}.liveDot{width:7px;height:7px;background:#ff5b62;border-radius:50%;box-shadow:0 0 0 6px rgba(255,91,98,.12);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.3);opacity:.65}}
+h1{font-family:"Playfair Display",serif;font-size:clamp(52px,8vw,94px);line-height:.9;letter-spacing:-.045em;margin:0 0 25px;max-width:750px}
+.hero p{font-size:16px;line-height:1.7;color:#c0bdc7;max-width:560px}.meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0;color:#d4d1d8;font-size:12px}.pill{padding:7px 11px;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:100px}.match{color:#8ee3b1;font-weight:700}
+.ctas{display:flex;gap:11px;flex-wrap:wrap}.cta{border:0;border-radius:13px;padding:14px 20px;font-weight:700;cursor:pointer;transition:.25s}.primary{background:var(--text);color:#08080b}.primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.12)}.ghost{background:rgba(255,255,255,.06);color:white;border:1px solid var(--line)}
+main{position:relative;z-index:3}.section{padding:42px 0 8px}.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:17px}.section h2{font-family:"Playfair Display",serif;font-size:28px;margin:0}.sectionHead span{font-size:12px;color:var(--muted)}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(190px,220px);gap:14px;overflow-x:auto;padding:5px 2px 18px;scrollbar-width:none}.rail::-webkit-scrollbar{display:none}
+.card{position:relative;aspect-ratio:2/3;border-radius:18px;overflow:hidden;background:var(--panel2);border:1px solid var(--line);cursor:pointer;transition:.28s;isolation:isolate}.card:hover{transform:translateY(-7px) scale(1.015);border-color:rgba(255,255,255,.22)}
+.poster{position:absolute;inset:0;background-size:cover;background-position:center}.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.94),transparent 60%)}
+.cardInfo{position:absolute;left:14px;right:14px;bottom:13px;z-index:2}.cardTitle{font-weight:700;font-size:15px}.cardMeta{font-size:10px;color:#c0bdc7;margin-top:5px}.score{position:absolute;top:11px;left:11px;z-index:2;background:rgba(7,7,11,.75);border:1px solid var(--line);padding:6px 8px;border-radius:10px;font-size:10px;font-weight:700}
+.resultActions{display:flex;gap:7px;margin-top:10px}.miniCta{flex:1;padding:8px 7px;border-radius:9px;border:1px solid rgba(255,255,255,.14);font-size:10px;font-weight:700;text-align:center;background:rgba(255,255,255,.08);color:white}.miniCta.watch{background:white;color:#08080b}.miniCta:hover{transform:translateY(-1px)}
+.searchWrap{display:flex;gap:10px;margin:20px 0 8px}.search{flex:1;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:15px;padding:14px 16px;color:white;outline:none}.search:focus{border-color:rgba(255,184,74,.5)}
+.chips{display:flex;gap:8px;overflow:auto;padding:4px 0 8px;scrollbar-width:none}.chip{white-space:nowrap;padding:9px 13px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:100px;color:#bbb8c2;font-size:12px;cursor:pointer}.chip.active,.chip:hover{background:white;color:#09090c}
+.spotlight{margin:45px 0;border:1px solid var(--line);border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1.25fr 1fr;background:linear-gradient(120deg,#111118,#0c0c11)}
+.spotImg{min-height:370px;background:url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85') center/cover}.spotCopy{padding:45px;display:flex;flex-direction:column;justify-content:center}.kicker{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:700}.spotCopy h3{font-family:"Playfair Display",serif;font-size:42px;line-height:1;margin:13px 0}.spotCopy p{color:#aaa7b2;line-height:1.7;font-size:14px}.footer{padding:65px 0 100px;border-top:1px solid var(--line);margin-top:50px;color:#77747f;font-size:12px}.footer strong{color:#d8d5dd}
+.bottomCta{display:none}
+.empty{color:var(--muted);padding:30px 0}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(15px);z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modalBox{width:min(760px,100%);max-height:90vh;overflow:auto;background:#111117;border:1px solid var(--line);border-radius:26px;box-shadow:0 30px 100px rgba(0,0,0,.55);position:relative}.close{position:absolute;right:14px;top:14px;z-index:3}.modalHero{height:270px;background-size:cover;background-position:center;position:relative}.modalHero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#111117,transparent 75%)}.modalBody{padding:0 28px 28px;margin-top:-42px;position:relative;z-index:2}.modalBody h3{font-family:"Playfair Display",serif;font-size:38px;margin:0 0 10px}.modalBody p{color:#aaa7b2;line-height:1.7}.notice{font-size:10px;color:#77747f;margin-top:18px}
+@media(max-width:700px){nav{padding:0 15px;height:66px}.navlinks{display:none}.container{width:min(100% - 26px,1220px)}.hero{min-height:670px}.heroContent{padding:45px 0 72px}h1{font-size:58px}.hero p{font-size:14px}.rail{grid-auto-columns:155px}.section{padding-top:32px}.spotlight{grid-template-columns:1fr;margin-top:35px}.spotImg{min-height:230px}.spotCopy{padding:28px}.spotCopy h3{font-size:34px}.bottomCta{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:25;background:rgba(15,15,20,.9);backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:17px;padding:8px}.bottomCta .cta{flex:1}.footer{padding-bottom:100px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#top">CINÉ<span>VAULT</span></a>
+  <div class="navlinks"><a href="#trending">Trending</a><a href="#discover">Discover</a><a href="#genres">Genres</a></div>
+  <div class="navright"><button class="iconbtn" onclick="focusSearch()" aria-label="Search">⌕</button><button class="profile">CV</button></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container heroContent">
+    <div class="eyebrow"><i class="liveDot"></i> Featured worldwide · Now showing</div>
+    <h1>The Last<br>Signal</h1>
+    <div class="meta"><span class="match">98% Match</span><span>2026</span><span>2h 08m</span><span class="pill">Sci-Fi</span><span class="pill">Mystery</span></div>
+    <p>A lone radio astronomer receives a signal that should not exist—and follows its trail beyond the edge of mapped space. A cinematic mystery built for late-night discovery.</p>
+    <div class="ctas"><a class="cta primary adlink" href="https://tremblingsauna.com/dua6rn4w?key=33949a7ecb56d20ed7324c48e6da025a" target="_blank" rel="nofollow noopener">▶ Watch Now</a><button class="cta ghost" onclick="openMovie('The Last Signal')">ⓘ More Details</button></div>
+  </div>
+</header>
+
+<main class="container">
+<section class="section" id="trending">
+  <div class="sectionHead"><h2>Trending Worldwide</h2><span>Updated moments ago</span></div>
+  <div class="rail" id="trendingRail"></div>
+</section>
+
+<section class="section" id="discover">
+  <div class="sectionHead"><h2>Find Your Next Film</h2><span>Explore the vault</span></div>
+  <div class="searchWrap"><input id="search" class="search" placeholder="Search movies in English or বাংলা..." onkeydown="if(event.key==='Enter') searchMovies()"><button class="cta primary" onclick="searchMovies()">Search</button></div>
+  <div id="searchStatus" style="font-size:11px;color:#8f8b98;margin:10px 0"></div>
+  <div class="chips" id="genres"></div>
+  <div class="rail" id="discoverRail"></div>
+</section>
+
+<section class="spotlight">
+  <div class="spotImg"></div>
+  <div class="spotCopy">
+    <div class="kicker">Editor's selection</div>
+    <h3>Stories worth staying up for.</h3>
+    <p>From intimate dramas to impossible worlds, CINÉVAULT curates cinematic discoveries across moods, countries and genres.</p>
+    <div class="ctas"><a class="cta primary adlink" href="https://tremblingsauna.com/dua6rn4w?key=33949a7ecb56d20ed7324c48e6da025a" target="_blank" rel="nofollow noopener">Explore Selection</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sectionHead"><h2>Popular Tonight</h2><span>Audience picks</span></div>
+  <div class="rail" id="popularRail"></div>
+</section>
+
+<footer class="footer"><strong>CINÉVAULT</strong> — An original cinematic discovery concept. Movie information shown here is illustrative/demo content. Availability, titles and details may vary. <span style="float:right">© 2026</span></footer>
+</main>
+
+<div class="bottomCta"><a class="cta primary adlink" href="https://tremblingsauna.com/dua6rn4w?key=33949a7ecb56d20ed7324c48e6da025a" target="_blank" rel="nofollow noopener">▶ Watch Featured</a></div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeMovie()">
+  <div class="modalBox">
+    <button class="iconbtn close" onclick="closeMovie()">×</button>
+    <div class="modalHero" id="modalHero"></div>
+    <div class="modalBody"><h3 id="modalTitle"></h3><div class="meta" id="modalMeta"></div><p id="modalDesc"></p><a class="cta primary adlink" href="https://tremblingsauna.com/dua6rn4w?key=33949a7ecb56d20ed7324c48e6da025a" target="_blank" rel="nofollow noopener">▶ Continue</a><div class="notice">Promotional destination. External site opens in a new tab.</div></div>
+  </div>
+</div>
+
+<script>
+const AD='https://tremblingsauna.com/dua6rn4w?key=33949a7ecb56d20ed7324c48e6da025a';
+const TMDB_API_KEY='PASTE_YOUR_TMDB_API_KEY_HERE';
+const TMDB_IMAGE='https://image.tmdb.org/t/p/w780';
+const CACHE_KEY='cinevault_movies_v3', CACHE_TIME=24*60*60*1000;
+
+const movies=[
+['Neon Horizon','2026','2h 01m','Sci-Fi','8.7','https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80','A courier crosses a neon megacity carrying a memory that can rewrite the future.'],
+['Midnight Kyoto','2025','1h 54m','Drama','8.4','https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=700&q=80','A quiet journey through night streets, old promises and one unexpected reunion.'],
+['After The Rain','2026','1h 48m','Romance','8.2','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80','Two strangers meet when a city-wide storm changes both their plans.'],
+['Black Meridian','2025','2h 16m','Thriller','9.0','https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=700&q=80','A forensic cartographer finds a pattern hidden inside impossible crime scenes.'],
+['The Long Weekend','2026','1h 42m','Comedy','8.0','https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=80','One cancelled flight. Three old friends. An unforgettable weekend.'],
+['Dust & Gold','2025','2h 05m','Adventure','8.6','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80','A treasure hunter races across a forgotten desert route before sunrise.'],
+['Blue Hour','2026','1h 51m','Mystery','8.5','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80','Every evening at 6:17, the same stranger appears in a different photograph.'],
+['Orbit 9','2025','2h 12m','Sci-Fi','8.9','https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80','Seven astronauts wake up to discover their destination has disappeared.'],
+['Wild North','2026','1h 57m','Adventure','8.3','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80','A survivalist and a filmmaker disappear into the far north together.'],
+['Paper Kingdom','2025','2h 03m','Fantasy','8.1','https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=700&q=80','A forgotten illustrated world begins leaking into the real one.'],
+['Static Hearts','2026','1h 45m','Romance','8.0','https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=80','Two musicians find a second chance in a city that never sleeps.'],
+['The Eighth Door','2025','1h 59m','Horror','8.8','https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80','An architect discovers a room that was never part of the building plans.']
+];
+let active='All';
+const genres=['All','Action','Drama','Sci-Fi','Thriller','Romance','Comedy','Adventure','Mystery','Fantasy'];
+
+function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function card(m){
+ return `<article class="card" onclick='openMovieByData(${JSON.stringify(m)})'><div class="poster" style="background-image:url('${m[5]}')"></div><div class="score">★ ${esc(m[4])}</div><div class="cardInfo"><div class="cardTitle">${esc(m[0])}</div><div class="cardMeta">${esc(m[1])} · ${esc(m[3])} · ${esc(m[2])}</div></div></article>`;
+}
+function searchCard(m){
+ return `<article class="card" onclick='openMovieByData(${JSON.stringify(m)})'><div class="poster" style="background-image:url('${m[5]}')"></div><div class="score">★ ${esc(m[4])}</div><div class="cardInfo"><div class="cardTitle">${esc(m[0])}</div><div class="cardMeta">${esc(m[1])} · ${esc(m[3])} · ${esc(m[2])}</div><div class="resultActions"><a class="miniCta watch" href="${AD}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">▶ Watch</a><a class="miniCta" href="${AD}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()">↓ Download</a></div></div></article>`;
+}
+function draw(id,list){document.getElementById(id).innerHTML=list.length?list.map(card).join(''):'<div class="empty">No titles found. Try another search.</div>'}
+function renderAll(){
+ const q=(document.getElementById('search')?.value||'').toLowerCase().trim();
+ draw('discoverRail',movies.filter(m=>(active==='All'||m[3]===active)&&m.join(' ').toLowerCase().includes(q)));
+}
+function setup(){
+ document.getElementById('genres').innerHTML=genres.map(g=>`<button class="chip ${g===active?'active':''}" onclick="setGenre('${g}')">${g}</button>`).join('');
+ draw('trendingRail',movies.slice(0,8));
+ draw('popularRail',[...movies].sort((a,b)=>b[4]-a[4]).slice(0,8));
+ renderAll(); refreshDailyCatalog();
+}
+function setGenre(g){active=g;setup()}
+function focusSearch(){document.getElementById('search').focus();document.getElementById('discover').scrollIntoView({behavior:'smooth',block:'start'})}
+function openMovieByData(m){
+ document.getElementById('modalTitle').textContent=m[0];
+ document.getElementById('modalHero').style.backgroundImage=`url('${m[5]}')`;
+ document.getElementById('modalMeta').innerHTML=`<span class="match">★ ${esc(m[4])}</span><span>${esc(m[1])}</span><span>${esc(m[2])}</span><span class="pill">${esc(m[3])}</span>`;
+ document.getElementById('modalDesc').textContent=m[6];
+ document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';
+}
+function openMovie(name){const m=movies.find(x=>x[0]===name)||movies[0];openMovieByData(m)}
+function closeMovie(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+function tmdbReady(){return TMDB_API_KEY && !TMDB_API_KEY.includes('PASTE_YOUR')}
+function cacheSet(data){try{localStorage.setItem(CACHE_KEY,JSON.stringify({time:Date.now(),data}))}catch(e){}}
+function cacheGet(){try{const x=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');return x&&Date.now()-x.time<CACHE_TIME?x.data:null}catch(e){return null}}
+function tmdbToMovie(x){
+ const year=(x.release_date||x.first_air_date||'').slice(0,4)||'—';
+ const gm={28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',14:'Fantasy',27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',53:'Thriller',10752:'War',37:'Western'};
+ const genre=(x.genre_ids||[]).map(id=>gm[id]).find(Boolean)||'Film';
+ const poster=x.poster_path?TMDB_IMAGE+x.poster_path:'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=80';
+ return [x.title||x.name||'Untitled',year,'—',genre,(x.vote_average||0).toFixed(1),poster,x.overview||'No synopsis available.'];
+}
+async function searchMovies(){
+ const q=document.getElementById('search').value.trim(),status=document.getElementById('searchStatus');
+ if(!q){renderAll();status.textContent='';return}
+ if(!tmdbReady()){status.textContent='Add your TMDB API key in the code to enable worldwide live search.';renderAll();return}
+ status.textContent='Searching worldwide…';
+ try{
+  const lang=/[\u0980-\u09FF]/.test(q)?'bn-BD':'en-US';
+  const url=`https://api.themoviedb.org/3/search/multi?api_key=${encodeURIComponent(TMDB_API_KEY)}&language=${lang}&query=${encodeURIComponent(q)}&include_adult=false&page=1`;
+  const r=await fetch(url);if(!r.ok)throw new Error();
+  const d=await r.json(),result=(d.results||[]).filter(x=>(x.media_type==='movie'||x.media_type==='tv')&&x.poster_path).map(tmdbToMovie);
+  status.textContent=result.length?`${result.length} result(s) found`:'No matching movie found.';
+  document.getElementById('discoverRail').innerHTML=result.length?result.map(searchCard).join(''):'<div class="empty">No movie found. Try another title.</div>';
+ }catch(e){status.textContent='Live search is temporarily unavailable.'}
+}
+async function refreshDailyCatalog(){
+ if(!tmdbReady())return;
+ const cached=cacheGet();
+ if(cached?.length){movies.splice(0,movies.length,...cached);draw('trendingRail',movies.slice(0,8));draw('popularRail',[...movies].sort((a,b)=>b[4]-a[4]).slice(0,8));renderAll();document.querySelector('#trending .sectionHead span').textContent='Updated within 24 hours';return}
+ try{
+  const r=await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${encodeURIComponent(TMDB_API_KEY)}`);if(!r.ok)throw new Error();
+  const d=await r.json(),fresh=(d.results||[]).filter(x=>x.poster_path).slice(0,20).map(tmdbToMovie);
+  if(fresh.length){cacheSet(fresh);movies.splice(0,movies.length,...fresh);draw('trendingRail',movies.slice(0,8));draw('popularRail',[...movies].sort((a,b)=>b[4]-a[4]).slice(0,8));renderAll();document.querySelector('#trending .sectionHead span').textContent='Refreshed today'}
+ }catch(e){}
+}
+setup();
+</script>
+</body>
+</html>
